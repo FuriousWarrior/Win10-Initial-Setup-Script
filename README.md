@@ -17,7 +17,7 @@ This is a PowerShell script for automation of routine tasks done after fresh ins
 ## Usage
 If you just want to run the script with default preset, simply right click on the *Win10.ps1* file, choose *Run with PowerShell*, and confirm execution policy change. Make sure your account is a member of *Administrators* group as the script attempts to run with elevated privileges.
 
-Alternatively copy also *Default.bat* and *Default.preset* along with the *Win10.ps1* file and then doubleclick on *Default.bat* to run it.
+Alternatively copy also *Default.cmd* and *Default.preset* along with the *Win10.ps1* file, place all three of them into the same folder and then double-click on *Default.cmd* to run the script.
 
 ### Advanced usage
 The script consists of separate functions, each of which contains one tweak. The functions can be grouped to *presets*. Preset is simply a list of function names which should be called. If you don't supply any specific preset, the default preset defined by `$tweaks` array in the beginning of the script will be applied. Any function which is not present or is commented in a preset will not be called, thus the corresponding tweak will not be applied.
@@ -71,6 +71,9 @@ For even more advanced usage, refer to section [Maintaining own forks](#maintain
 **Q**: I've run the script and it did xxx, how can I undo it?  
 **A:** For every tweak, there is also a corresponding function which restores the default settings. The default is considered freshly installed Windows 10 or Windows Server 2016 with no adjustments made during or after the installation. Use the tweaks to create and run new preset. Alternatively, since some functions are just automation for actions which can be done using GUI, find appropriate control and modify it manually.
 
+**Q:** I've run the script and some controls are now greyed out and display message "*Some settings are hidden or managed by your organization*", why?  
+**A:** To ensure that system-wide tweaks are applied smoothly and reliably, some of them make use of *Group Policy Objects* (*GPO*). The same mechanism is employed also in companies managing their computers in large scale, so the users without administrative privileges can't change the settings. If you wish to change a setting locked by GPO, apply the appropriate restore tweak and the control will become available again.
+
 **Q:** I've run the script and it broke my computer / killed neighbor's dog / caused world war 3.  
 **A:** I don't care. Also, that's not a question.
 
@@ -100,13 +103,13 @@ For even more advanced usage, refer to section [Maintaining own forks](#maintain
 |  1607   | Redstone 1 (RS1)        | Anniversary Update     | 14393 |
 |  1703   | Redstone 2 (RS2)        | Creators Update        | 15063 |
 |  1709   | Redstone 3 (RS3)        | Fall Creators Update   | 16299 |
-|  1803   | Redstone 4 (RS4)        | Spring Creators Update | 17133 |
+|  1803   | Redstone 4 (RS4)        | April 2018 Update      | 17134 |
 
 &nbsp;
 
 ## Maintaining own forks
 
-The easiest way how to customize the script settings it is to create your own preset file. For easy start, you can base it on the *Default.bat* and *Default.preset* and maintain just that. If you choose to fork the script anyway and adjust the defaults directly in the script instead, then all you have to modify is the `$tweaks` array in the beginning of the script. You don't need to comment or remove the actual functions, because if they are not called, they are not used.
+The easiest way how to customize the script settings it is to create your own preset file. For easy start, you can base it on the *Default.cmd* and *Default.preset* and maintain just that. If you choose to fork the script anyway and adjust the defaults directly in the script instead, then all you have to modify is the `$tweaks` array in the beginning of the script. You don't need to comment or remove the actual functions, because if they are not called, they are not used.
 
 If you wish to make more elaborate modifications and incorporate some personal tweaks or adjustments, the I suggest doing it in a following way:
 
